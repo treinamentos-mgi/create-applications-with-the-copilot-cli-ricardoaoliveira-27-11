@@ -16,20 +16,36 @@ function parseNumber(value) {
   return number;
 }
 
+// Suporta adição (+), subtração (-), multiplicação (*) e divisão (/).
+function addition(first, second) {
+  return first + second;
+}
+
+function subtraction(first, second) {
+  return first - second;
+}
+
+function multiplication(first, second) {
+  return first * second;
+}
+
+function division(first, second) {
+  if (second === 0) {
+    throw new Error('Não é possível dividir por zero.');
+  }
+  return first / second;
+}
+
 function calculate(first, operation, second) {
-  // Suporta adição (+), subtração (-), multiplicação (*) e divisão (/).
   switch (operation) {
     case '+':
-      return first + second;
+      return addition(first, second);
     case '-':
-      return first - second;
+      return subtraction(first, second);
     case '*':
-      return first * second;
+      return multiplication(first, second);
     case '/':
-      if (second === 0) {
-        throw new Error('Não é possível dividir por zero.');
-      }
-      return first / second;
+      return division(first, second);
     default:
       throw new Error('Operação inválida.');
   }
@@ -56,4 +72,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { parseNumber, calculate };
+module.exports = { parseNumber, calculate, addition, subtraction, multiplication, division };

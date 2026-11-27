@@ -1,6 +1,23 @@
 const { spawnSync } = require('node:child_process');
 const path = require('node:path');
-const { calculate, parseNumber } = require('../calculator');
+const {
+  calculate, parseNumber, addition, subtraction, multiplication, division,
+} = require('../calculator');
+
+describe('funções de operações', () => {
+  test.each([
+    ['addition', addition, 2, 3, 5],
+    ['subtraction', subtraction, 10, 4, 6],
+    ['multiplication', multiplication, 45, 2, 90],
+    ['division', division, 20, 5, 4],
+  ])('%s calcula o resultado', (_name, operation, first, second, expected) => {
+    expect(operation(first, second)).toBe(expected);
+  });
+
+  test.each([0, -0])('division rejeita divisor zero (%s)', (zero) => {
+    expect(() => division(5, zero)).toThrow('Não é possível dividir por zero.');
+  });
+});
 
 describe('calculate', () => {
   test.each([
